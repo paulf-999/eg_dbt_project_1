@@ -1,10 +1,10 @@
-all: init_dbt_project setup_dbt_project_file validate_conn
+all: init_dbt_project setup_dbt_project_file validate_conn copy_dbt_project_files
 
 # airflow input args
-export DBT_PROFILE_NAME=#e.g., eg_profile_name
-export DBT_PROJECT_NAME=#e.g., dbt_demo_eg
-export DBT_MODEL=#e.g., curated_db
-export PROGRAM=#e.g., DBT_DEMO_EG
+export DBT_PROFILE_NAME=dbt_svc_profile
+export DBT_PROJECT_NAME=bike_shop
+export DBT_MODEL=curated_db
+export PROGRAM=BIKE_SHOP
 
 deps:
 	$(info [+] Install dependencies (dbt))
@@ -46,10 +46,6 @@ setup_dbt_project_file:
 	@sed -i -e 's/my_new_project/${DBT_PROJECT_NAME}/g' ${DBT_PROJECT_NAME}/dbt_project.yml
 	@rm ${DBT_PROJECT_NAME}/dbt_project.yml-e
 
-ins_sub_projects:
-	$(info [+] Install 'child' dbt projects)
-	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
-
 validate_conn:
 	$(info [+] Verify the connection to the source DB)
 	cd ${DBT_PROJECT_NAME} && dbt debug --profiles-dir=profiles
@@ -58,7 +54,10 @@ copy_dbt_project_files:
 	$(info [+] Copy generated dbt project files to parent 'dbt' folder)
 	@cp -r ${DBT_PROJECT_NAME} ../../
 	@rm -r ${DBT_PROJECT_NAME}
-	@rm -r ../../${DBT_PROJECT_NAME}/dbt_sub_projects
+
+ins_sub_projects:
+	$(info [+] Install 'child' dbt projects)
+	@cd ${DBT_PROJECT_NAME} && dbt deps --profiles-dir=profiles
 
 run_model:
 	$(info [+] Run the DBT model)

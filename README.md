@@ -1,1 +1,1 @@
-# eg_git_project_1
+# eg_dbt_project_1
