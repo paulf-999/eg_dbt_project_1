@@ -6,4 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-        curl -X POST -u "${{ secrets.GIT_CREDENTIALS }}" -H "Accept:application/vnd.github" -H "Content-Type:application/json" api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches --data '{"ref": "main" }'
+        curl -X POST https://api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches \
+        -H 'Accept:application/vnd.github' \
+        -u ${{ secrets.GIT_CREDENTIALS }} \
+         --data '{"ref": "main" }'
