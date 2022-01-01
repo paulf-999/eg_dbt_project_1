@@ -8,6 +8,6 @@ jobs:
       - name: ping parent repo
         run: |
           curl -X POST https://api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches \
-          -H 'Accept:application/vnd.github' \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.GIT_CREDENTIALS }} \
           --data '{"ref": "main" }'
