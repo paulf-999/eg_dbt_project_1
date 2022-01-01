@@ -9,4 +9,4 @@ jobs:
         curl -X POST https://api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches \
         -H 'Accept:application/vnd.github' \
         -u ${{ secrets.GIT_CREDENTIALS }} \
-         --data '{"ref": "main" }'
+        --data '{"ref": "main" }'
