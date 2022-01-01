@@ -1,3 +1,9 @@
 name: Trigger my downstream workflow
-  run: |
-    curl -X POST -u "${{ secrets.GIT_CREDENTIALS }}" -H "Accept:application/vnd.github" -H "Content-Type:application/json" api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches --data '{"ref": "main" }'
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+        curl -X POST -u "${{ secrets.GIT_CREDENTIALS }}" -H "Accept:application/vnd.github" -H "Content-Type:application/json" api.github.com/repos/paulf-999/dbt_demo_vertical_proj_struct/dispatches --data '{"ref": "main" }'
