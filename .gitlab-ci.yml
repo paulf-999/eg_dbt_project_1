@@ -1,0 +1,28 @@
+---
+image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+
+variables:
+  AWS_DEFAULT_REGION: ap-southeast-2
+  CI_JOB_NAME: example-job
+
+stages:
+  - code
+  - build
+  - test
+
+.cfn_lint:
+  rules:
+  #only runs the following if you're on a feature branch
+    - if: '$CI_COMMIT_BRANCH =~ /^feature.*/'
+  stage: code
+  image: python:alpine
+  before_script:
+  - echo "Started ${CI_JOB_NAME} - $(date)"
+  script:
+    - pip3 install cfn-lint
+    - cfn-lint ./**/*.yml
+  after_script:
+    - echo "Finished ${CI_JOB_NAME} - $(date)"
+  allow_failure: true
+
+cfn_lint_test: {extends: [.cfn_lint]}
