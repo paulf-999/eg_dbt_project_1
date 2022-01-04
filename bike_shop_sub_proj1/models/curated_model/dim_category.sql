@@ -5,4 +5,4 @@
 }}
 
 SELECT *
-FROM {{ source('bike_production', 'products') }}
+FROM {{ source('bike_production', 'categories') }}

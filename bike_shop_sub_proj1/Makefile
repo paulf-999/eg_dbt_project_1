@@ -62,6 +62,10 @@ copy_dbt_project_files:
 
 run_model:
 	$(info [+] Run the DBT model)
+	dbt run --profiles-dir profiles --models my_model
+
+run_model_child_project:
+	$(info [+] Run the DBT model)
 	dbt run --profiles-dir profiles --models my_model --target dev-child-project
 
 test_model:

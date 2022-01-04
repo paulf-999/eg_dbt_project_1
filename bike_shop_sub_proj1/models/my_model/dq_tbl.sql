@@ -1,3 +1,8 @@
+{{
+    config(
+        schema='production'
+    )
+}}
 --this would be a 'source' command in here
 --logic:
 --'if this wasn't installed as a package/child project'
